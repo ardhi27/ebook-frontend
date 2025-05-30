@@ -4,7 +4,7 @@ import Stack from "../../components/Stack";
 const Market = () => {
   return (
     <Stack>
-      <h1>This is market pages</h1>
+      <span className=" text-blue-600 font-primary">This is market pages</span>
     </Stack>
   );
 };
