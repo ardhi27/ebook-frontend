@@ -1,16 +1,21 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from "react";
+import reactLogo from "./assets/react.svg";
+import viteLogo from "/vite.svg";
+import "./App.css";
+import Stack from "./components/Stack";
+Stack;
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <div>
-      <span className="text-3xl text-amber-300">Hello World</span>
-    </div>
-  )
+    <Stack>
+      <span className=" text-green-400">AAAa</span>
+      <span className=" text-green-400">AAAa</span>
+      <span className=" text-green-400">AAAa</span>
+      <span className=" text-green-400">AAAa</span>
+      <span className=" text-green-400">AAAa</span>
+      <span className=" text-green-400">AAAa</span>
+    </Stack>
+  );
 }
 
-export default App
+export default App;
