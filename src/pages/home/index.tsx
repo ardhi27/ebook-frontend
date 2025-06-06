@@ -1,10 +1,15 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import Stack from "../../components/Stack";
 import Header from "../../components/Header";
 import Group from "../../components/Group";
 import Button from "../../components/Button";
 
 const HomePage = () => {
+  const navigate = useNavigate();
+  const toMarketPage = () => {
+    navigate("/market");
+  };
   return (
     <Stack className="w-full">
       <Header />
@@ -25,6 +30,7 @@ const HomePage = () => {
               knowledge
             </span>
             <Button
+              onClick={toMarketPage}
               label="Services"
               className="rounded-3xl text-white bg-black w-[7rem] h-[3rem] hover:bg-white hover:text-black"
             ></Button>
