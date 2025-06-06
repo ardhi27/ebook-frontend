@@ -15,7 +15,7 @@ const Stack: React.FC<StackProps> = ({
   ...props
 }) => {
   const defaultClass = `flex flex-col space-y-${gap}`;
-  return <div className={defaultClass}>{children}</div>;
+  return <div className={`${defaultClass} ${className}`}>{children}</div>;
 };
 
 export default Stack;

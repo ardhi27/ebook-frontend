@@ -1,11 +1,18 @@
 import React from "react";
 import Stack from "./Stack";
+import Group from "./Group";
+import Button from "./Button";
+Button;
 
 const Header = () => {
+  const HandleClick = () => {
+    console.log("Button is clicked");
+  };
+
   return (
-    <Stack>
-      <span className="font-inter">login</span>
-    </Stack>
+    <Group className=" bg-transparent z-20 w-full flex justify-between p-5 items-center">
+      <span className="text-xl font-bold text-white">RYB</span>
+    </Group>
   );
 };
 
