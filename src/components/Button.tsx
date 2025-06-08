@@ -15,7 +15,11 @@ const Button: React.FC<ButtonProps> = ({
 }) => {
   const defaultClass = "font-inter";
   return (
-    <button onClick={onClick} className={`${defaultClass} ${className}`}>
+    <button
+      type="submit"
+      onClick={onClick}
+      className={`${defaultClass} ${className}`}
+    >
       <span>{label}</span>
       {children}
     </button>

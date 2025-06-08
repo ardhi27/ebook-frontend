@@ -9,6 +9,7 @@ import Market from "./pages/market";
 import HomePage from "./pages/home";
 import Payment from "./pages/payment";
 import Profile from "./pages/profile";
+import LoginPage from "./pages/login";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path="/market" element={<Market />} />
         <Route path="/payment" element={<Payment />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/login" element={<LoginPage />} />
       </Routes>
     </Router>
   );
