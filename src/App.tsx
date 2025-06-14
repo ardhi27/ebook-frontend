@@ -10,18 +10,21 @@ import HomePage from "./pages/home";
 import Payment from "./pages/payment";
 import Profile from "./pages/profile";
 import LoginPage from "./pages/login";
+import AuthProvider from "./context/AuthContext";
 
 function App() {
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/market" element={<Market />} />
-        <Route path="/payment" element={<Payment />} />
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/login" element={<LoginPage />} />
-      </Routes>
-    </Router>
+    <AuthProvider>
+      <Router>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/market" element={<Market />} />
+          <Route path="/payment" element={<Payment />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/login" element={<LoginPage />} />
+        </Routes>
+      </Router>
+    </AuthProvider>
   );
 }
 
