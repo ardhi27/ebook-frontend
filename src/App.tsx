@@ -12,6 +12,7 @@ import Profile from "./pages/profile";
 import LoginPage from "./pages/login";
 import AuthProvider from "./context/AuthContext";
 import RegisterPage from "./pages/register";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
   return (
@@ -19,11 +20,11 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<HomePage />} />
-          {/* Protected Route */}
-          <Route path="/market" element={<Market />} />
-          <Route path="/payment" element={<Payment />} />
-          <Route path="/profile" element={<Profile />} />
-          {/* ///////////// */}
+          <Route element={<ProtectedRoute />}>
+            <Route path="/market" element={<Market />} />
+            <Route path="/payment" element={<Payment />} />
+            <Route path="/profile" element={<Profile />} />
+          </Route>
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
         </Routes>
