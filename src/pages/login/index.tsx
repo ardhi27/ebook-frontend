@@ -1,4 +1,4 @@
-import React from "react";
+import { ChangeEvent, useState } from "react";
 import Input from "../../components/Input";
 import Stack from "../../components/Stack";
 import Header from "../../components/Header";
@@ -6,14 +6,34 @@ import Group from "../../components/Group";
 import Button from "../../components/Button";
 import { useNavigate } from "react-router-dom";
 import Form from "../../components/Form";
+import useAuthenticationHandlers from "../../hooks/useAuthenticationHandlers";
+
 const LoginPage = () => {
   const navigate = useNavigate();
+  const [loginForm, setLoginForm] = useState({
+    username: "",
+    password: "",
+  });
+
   const toRegisterPage = () => {
     navigate("/register");
   };
+  const { login } = useAuthenticationHandlers();
 
   const handleSubmit = (e: React.FormEvent) => {
-    console.log("Test Handle Submit Function");
+    e.preventDefault();
+    login(loginForm);
+    console.table(loginForm);
+  };
+
+  const handleInputChange = (
+    key: keyof typeof loginForm,
+    event: ChangeEvent<HTMLInputElement>
+  ) => {
+    setLoginForm((prev) => ({
+      ...prev,
+      [key]: event.target.value,
+    }));
   };
 
   return (
@@ -26,8 +46,16 @@ const LoginPage = () => {
               <span className="text-black text-2xl text-center font-primary font-bold">
                 Login
               </span>
-              <Input placeholder="Email" />
-              <Input placeholder="Password" />
+              <Input
+                placeholder="Email"
+                value={loginForm.username}
+                onChange={(e) => handleInputChange("username", e)}
+              />
+              <Input
+                placeholder="Password"
+                value={loginForm.password}
+                onChange={(e) => handleInputChange("password", e)}
+              />
               <Button
                 className="bg-black w-full text-white p-2 rounded-lg"
                 label="Submit"
