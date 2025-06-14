@@ -22,6 +22,7 @@ interface AuthContextProps {
   handlers: {
     login: (data: UserForm) => void;
     logout: () => void;
+    register: (data: UserForm) => void;
   };
 }
 const AuthContext = createContext<AuthContextProps>({} as AuthContextProps);
@@ -30,6 +31,32 @@ const AuthProvider = ({ children }: PropsWithChildren) => {
   const [user, setUser] = useState<User | null>(null);
   const [token, setToken] = useState(localStorage.getItem("token") || "");
   const [isAuthenticated, setAuthenticated] = useState(false);
+
+  const register = async (data: UserForm) => {
+    try {
+      const response = await fetch("http://localhost:3000/api/users/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+      if (response.ok) {
+        console.log("Registration successfully!");
+        alert("Registration success! redirect to login page");
+        window.location.href = "/register";
+      } else {
+        const errorData = await response.json();
+        console.log(
+          "Error Registration : " + errorData || "Something went wrong"
+        );
+        alert("Error Registration" + errorData);
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   const login = async (data: UserForm) => {
     try {
       const response = await fetch("http://localhost:3000/api/users/login", {
@@ -63,6 +90,7 @@ const AuthProvider = ({ children }: PropsWithChildren) => {
   const handlers = {
     login,
     logout,
+    register,
   };
 
   useEffect(() => {
