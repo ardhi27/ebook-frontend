@@ -13,7 +13,7 @@ const Button: React.FC<ButtonProps> = ({
   className,
   children,
 }) => {
-  const defaultClass = "font-inter";
+  const defaultClass = "font-primary";
   return (
     <button
       type="submit"
