@@ -1,8 +1,4 @@
-import { useState } from "react";
-
-import "./App.css";
-import Stack from "./components/Stack";
-import React from "react";
+import "./index.css";
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Market from "./pages/market";
@@ -13,6 +9,7 @@ import LoginPage from "./pages/login";
 import AuthProvider from "./context/AuthContext";
 import RegisterPage from "./pages/register";
 import ProtectedRoute from "./components/ProtectedRoute";
+import AlertNotification from "./components/Modal";
 
 function App() {
   return (
