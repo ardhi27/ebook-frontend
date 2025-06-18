@@ -1,10 +1,12 @@
 import React from "react";
+import { twMerge } from "tailwind-merge";
 
 interface StackProps {
   gap?: number;
   position?: "start" | "end" | "center";
-  children: React.ReactNode;
+  children?: React.ReactNode;
   className?: string;
+  onClick?: () => void;
 }
 
 const Stack: React.FC<StackProps> = ({
@@ -12,10 +14,17 @@ const Stack: React.FC<StackProps> = ({
   position = "start",
   children,
   className,
+  onClick,
   ...props
 }) => {
-  const defaultClass = `flex flex-col space-y-${gap}`;
-  return <div className={`${defaultClass} ${className}`}>{children}</div>;
+  return (
+    <div
+      className={twMerge(`flex flex-col flex-wrap gap-4`, className)}
+      onClick={onClick}
+    >
+      {children}
+    </div>
+  );
 };
 
 export default Stack;
