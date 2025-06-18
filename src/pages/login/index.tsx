@@ -7,6 +7,8 @@ import Button from "../../components/Button";
 import { useNavigate } from "react-router-dom";
 import Form from "../../components/Form";
 import useAuthenticationHandlers from "../../hooks/useAuthenticationHandlers";
+import useModal from "../../hooks/useModal";
+import Modal from "../../components/Modal";
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -15,8 +17,11 @@ const LoginPage = () => {
     password: "",
   });
 
+  const { isOpen, open, close } = useModal();
+
   const toRegisterPage = () => {
-    navigate("/register");
+    // navigate("/register");
+    open();
   };
   const { login } = useAuthenticationHandlers();
 
@@ -38,8 +43,9 @@ const LoginPage = () => {
 
   return (
     <Stack className="w-full h-screen bg-black">
+      <Modal isOpen={isOpen} close={close} />
       <Header />
-      <Stack className="justify-center h-full w-full">
+      <Stack className="justify-center items-center-safe grow-1 w-full">
         <Form onSubmit={handleSubmit}>
           <Stack className="w-full items-center">
             <Stack className="bg-white w-1/3 items-center gap-y-3 rounded-lg p-5">
