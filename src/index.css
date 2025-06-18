@@ -1,4 +1,8 @@
-@import "tailwindcss";
+@layer theme, base, components, utilities;
+
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/preflight.css" layer(base);
+@import "tailwindcss/utilities.css";
 
 @font-face {
   font-family: "Inter";
@@ -19,4 +23,5 @@
 @theme {
   --font-primary: "Inter", "sans-serif";
   --font-edusa: "EduSA", "sans-serif";
+  --color-primary: #161179;
 }
