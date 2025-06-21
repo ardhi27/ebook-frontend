@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import Input from "../../components/Input";
 import Stack from "../../components/Stack";
 import Header from "../../components/Header";
@@ -9,9 +9,11 @@ import Form from "../../components/Form";
 import useAuthenticationHandlers from "../../hooks/useAuthenticationHandlers";
 import useModal from "../../hooks/useModal";
 import Modal from "../../components/Modal";
+import { useAuth } from "../../context/AuthContext";
 
 const LoginPage = () => {
   const navigate = useNavigate();
+  const { isAuthenticated, token } = useAuth();
   const [loginForm, setLoginForm] = useState({
     username: "",
     password: "",
@@ -20,7 +22,6 @@ const LoginPage = () => {
   const { isOpen, open, close } = useModal();
 
   const toRegisterPage = () => {
-    // navigate("/register");
     open();
   };
   const { login } = useAuthenticationHandlers();
@@ -41,6 +42,12 @@ const LoginPage = () => {
     }));
   };
 
+  useEffect(() => {
+    if (isAuthenticated && token) {
+      window.location.href = "/market";
+    }
+  }, [token]);
+
   return (
     <Stack className="w-full h-screen bg-black">
       <Modal isOpen={isOpen} close={close} variant={"warning"} />
@@ -58,6 +65,7 @@ const LoginPage = () => {
                 onChange={(e) => handleInputChange("username", e)}
               />
               <Input
+                type="password"
                 placeholder="Password"
                 value={loginForm.password}
                 onChange={(e) => handleInputChange("password", e)}
