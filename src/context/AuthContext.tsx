@@ -44,7 +44,7 @@ const AuthProvider = ({ children }: PropsWithChildren) => {
       if (response.ok) {
         console.log("Registration successfully!");
         alert("Registration success! redirect to login page");
-        window.location.href = "/register";
+        window.location.href = "/login";
       } else {
         const errorData = await response.json();
         console.log(

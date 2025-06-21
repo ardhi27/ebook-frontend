@@ -13,6 +13,8 @@ interface AlertNotificationProps extends PropsWithChildren {
 
 const modalHeaderClass = {
   primary: "bg-primary text-white",
+  danger: "bg-danger text-white",
+  warning: "bg-warning text-white",
 };
 
 const Modal: React.FC<AlertNotificationProps> = ({

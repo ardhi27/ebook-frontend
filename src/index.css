@@ -24,4 +24,6 @@
   --font-primary: "Inter", "sans-serif";
   --font-edusa: "EduSA", "sans-serif";
   --color-primary: #161179;
+  --color-danger: #dc2525;
+  --color-warning: #ff9b17;
 }

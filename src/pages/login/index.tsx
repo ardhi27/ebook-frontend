@@ -43,7 +43,7 @@ const LoginPage = () => {
 
   return (
     <Stack className="w-full h-screen bg-black">
-      <Modal isOpen={isOpen} close={close} />
+      <Modal isOpen={isOpen} close={close} variant={"warning"} />
       <Header />
       <Stack className="justify-center items-center-safe grow-1 w-full">
         <Form onSubmit={handleSubmit}>

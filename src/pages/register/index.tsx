@@ -34,7 +34,7 @@ const RegisterPage = () => {
   return (
     <Stack className="w-full h-screen bg-black">
       <Header />
-      <Stack className="justify-center h-full w-full">
+      <Stack className="justify-center items-center-safe grow-1 w-full">
         <Form onSubmit={handleSubmit}>
           <Stack className="w-full items-center">
             <Stack className="bg-white w-1/3 items-center gap-y-3 rounded-lg p-5">
