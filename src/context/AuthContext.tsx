@@ -5,6 +5,7 @@ import {
   useEffect,
   PropsWithChildren,
 } from "react";
+import { useNavigate } from "react-router-dom";
 
 type User = {
   username: string;
@@ -17,7 +18,7 @@ type UserForm = {
 };
 interface AuthContextProps {
   isAuthenticated: boolean;
-  token: string;
+  token: string | null;
   user: User | null;
   handlers: {
     login: (data: UserForm) => void;
@@ -29,7 +30,7 @@ const AuthContext = createContext<AuthContextProps>({} as AuthContextProps);
 
 const AuthProvider = ({ children }: PropsWithChildren) => {
   const [user, setUser] = useState<User | null>(null);
-  const [token, setToken] = useState(localStorage.getItem("token") || "");
+  const [token, setToken] = useState<string | null>(null);
   const [isAuthenticated, setAuthenticated] = useState(false);
 
   const register = async (data: UserForm) => {
@@ -71,8 +72,9 @@ const AuthProvider = ({ children }: PropsWithChildren) => {
       if (res.data) {
         setToken(res.data.token);
         setAuthenticated(true);
-        localStorage.setItem("token", res.token);
-        window.location.href = "/";
+        localStorage.setItem("token", res.data.token);
+        alert("Login successfully! redirect to homepage!");
+        window.location.href = "/market";
       }
     } catch (err) {
       setAuthenticated(true);
@@ -94,11 +96,11 @@ const AuthProvider = ({ children }: PropsWithChildren) => {
   };
 
   useEffect(() => {
-    if (!isAuthenticated) return;
-    if (!token) {
-      window.location.href = "/login";
-    }
-  }, [isAuthenticated, token]);
+    const existedToken = localStorage.getItem("token");
+    if (!existedToken) return;
+    setToken(existedToken);
+    setAuthenticated(true);
+  }, []);
 
   return (
     <AuthContext.Provider value={{ isAuthenticated, user, token, handlers }}>
