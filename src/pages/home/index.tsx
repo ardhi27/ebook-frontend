@@ -4,33 +4,20 @@ import Stack from "../../components/Stack";
 import Header from "../../components/Header";
 import Group from "../../components/Group";
 import Button from "../../components/Button";
+import { useAuth } from "../../context/AuthContext";
 
 const HomePage = () => {
   const navigate = useNavigate();
+  const { token } = useAuth();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
   const toLoginPage = () => {
     navigate("/login");
   };
-  const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
 
-  const isSessionExist = () => {
-    const session = localStorage.getItem("token");
-    if (session) {
-      console.log("User is exist!");
-      setIsUserLoggedIn(true);
-    } else {
-      console.log("User isnt exist!");
-      setIsUserLoggedIn(false);
-    }
-  };
-
-  useEffect(() => {
-    isSessionExist();
-  }, []);
-
-  useEffect(() => {
-    console.log(isUserLoggedIn);
+  const toMarketPage = () => {
     navigate("/market");
-  }, [isUserLoggedIn]);
+  };
 
   return (
     <Stack className="w-full">
@@ -45,7 +32,7 @@ const HomePage = () => {
               knowledge
             </span>
             <Button
-              onClick={toLoginPage}
+              onClick={token ? toLoginPage : toMarketPage}
               label="Services"
               className="rounded-3xl text-white bg-black w-[7rem] h-[3rem] hover:bg-white hover:text-black"
             ></Button>
