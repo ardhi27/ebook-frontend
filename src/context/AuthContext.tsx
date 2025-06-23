@@ -1,3 +1,4 @@
+import { create } from "domain";
 import {
   useContext,
   createContext,
@@ -5,7 +6,6 @@ import {
   useEffect,
   PropsWithChildren,
 } from "react";
-import { useNavigate } from "react-router-dom";
 
 type User = {
   username: string;
@@ -26,6 +26,7 @@ interface AuthContextProps {
     register: (data: UserForm) => void;
   };
 }
+
 const AuthContext = createContext<AuthContextProps>({} as AuthContextProps);
 
 const AuthProvider = ({ children }: PropsWithChildren) => {
@@ -110,7 +111,6 @@ const AuthProvider = ({ children }: PropsWithChildren) => {
 };
 
 export default AuthProvider;
-
 export const useAuth = () => {
   return useContext(AuthContext);
 };
