@@ -10,6 +10,7 @@ import AuthProvider from "./context/AuthContext";
 import RegisterPage from "./pages/register";
 import ProtectedRoute from "./components/ProtectedRoute";
 import AlertNotification from "./components/Modal";
+import UiTest from "./pages/uitest";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
             <Route path="/profile" element={<Profile />} />
           </Route>
           <Route path="/login" element={<LoginPage />} />
+          <Route path="/uitest" element={<UiTest />} />
           <Route path="/register" element={<RegisterPage />} />
         </Routes>
       </Router>
