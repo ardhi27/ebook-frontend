@@ -5,7 +5,7 @@ import Button from "./Button";
 import { twMerge } from "tailwind-merge";
 
 interface CardProps {
-  booksId: string;
+  booksId: number;
   booksName: string;
   booksAuthor: string;
   booksDescription: string;
