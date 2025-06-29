@@ -1,57 +1,56 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Stack from "../../components/Stack";
 import Header from "../../components/Header";
+import axios from "axios";
+import Group from "../../components/Group";
+import Grid from "../../components/Grid";
+import Card from "../../components/Card";
+
+interface BooksProps {
+  booksId: number;
+  booksName: string;
+  author: {
+    author: string;
+  };
+  BooksCategory: {
+    category: string;
+  };
+  booksDesc: string;
+}
 
 const Market = () => {
-  const dummyBooks = [
-    {
-      id: "f1",
-      gambar:
-        "http://googleusercontent.com/image_collection/image_retrieval/7374448129940424020",
-      namaBuku: "Misteri di Balik Kabut",
-      deskripsi: "Sebuah novel fiksi yang penuh teka-teki dan intrik.",
-    },
-    {
-      id: "nf1",
-      gambar:
-        "http://googleusercontent.com/image_collection/image_retrieval/13591147631318737547",
-      namaBuku: "Sejarah Dunia dalam 100 Hari",
-      deskripsi: "Buku non-fiksi yang merangkum peristiwa penting dunia.",
-    },
-    {
-      id: "c1",
-      gambar:
-        "http://googleusercontent.com/image_collection/image_retrieval/7057999354881613774",
-      namaBuku: "Petualangan Tim Kecil",
-      deskripsi: "Buku anak-anak yang penuh warna dan imajinasi.",
-    },
-    {
-      id: "f2",
-      gambar:
-        "http://googleusercontent.com/image_collection/image_retrieval/7374448129940424020",
-      namaBuku: "Cinta di Musim Hujan",
-      deskripsi: "Novel romantis dengan latar belakang hujan yang melankolis.",
-    },
-    {
-      id: "nf2",
-      gambar:
-        "http://googleusercontent.com/image_collection/image_retrieval/13591147631318737547",
-      namaBuku: "Memahami Pikiran Manusia",
-      deskripsi: "Buku non-fiksi tentang psikologi dan perilaku manusia.",
-    },
-    {
-      id: "c2",
-      gambar:
-        "http://googleusercontent.com/image_collection/image_retrieval/7057999354881613774",
-      namaBuku: "Dongeng Sebelum Tidur",
-      deskripsi: "Kumpulan cerita pengantar tidur untuk anak-anak.",
-    },
-  ];
+  const [books, setBooks] = useState<BooksProps[]>([]);
+  const getData = async () => {
+    await axios
+      .get("http://localhost:3000/api/books/books")
+      .then((response) => {
+        console.log("Data API : ", response.data);
+        setBooks(response.data.data);
+        return response.data;
+      });
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
 
   return (
-    <Stack className="w-screen h-screen bg-black">
+    <Stack className="w-screen min-h-screen  bg-black">
       <Header />
-      <span className=" text-blue-600 font-primary">This is market pages</span>
+      <Group className="w-full h-full justify-center">
+        <Grid className="p-5 items-center grid-cols-3 max-md:grid-cols-1 max-lg:grid-cols-2">
+          {books.map((book) => (
+            <Card
+              key={book.booksId}
+              booksId={book.booksId}
+              booksName={book.booksName}
+              booksAuthor={book.author.author}
+              booksDescription={book.booksDesc}
+              booksCategory={book.BooksCategory.category}
+            />
+          ))}
+        </Grid>
+      </Group>
     </Stack>
   );
 };
