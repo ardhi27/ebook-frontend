@@ -3,6 +3,7 @@ import Group from "./Group";
 import Stack from "./Stack";
 import Button from "./Button";
 import { twMerge } from "tailwind-merge";
+import { useNavigate } from "react-router-dom";
 
 interface CardProps {
   booksId: number;
@@ -20,8 +21,10 @@ const Card: React.FC<CardProps> = ({
   booksCategory,
   className,
 }) => {
-  const reserveClick = () => {
+  const navigate = useNavigate();
+  const showItem = () => {
     console.log("book clicked on id : " + booksId);
+    navigate(`/books/${booksId}`);
   };
   return (
     <Stack
@@ -43,6 +46,9 @@ const Card: React.FC<CardProps> = ({
         <span className="px-2">{booksAuthor}</span>
         <span>Description</span>
         <span className="px-2">{booksDescription}</span>
+      </Stack>
+      <Stack className="w-full justify-end">
+        <Button label="Reserve" className="bg-white rounded-lg p-1" />
       </Stack>
     </Stack>
   );
