@@ -24,7 +24,7 @@ const Card: React.FC<CardProps> = ({
   const navigate = useNavigate();
   const showItem = () => {
     console.log("book clicked on id : " + booksId);
-    navigate(`/books/${booksId}`);
+    navigate(`/detail/${booksId}`);
   };
   return (
     <Stack
@@ -48,7 +48,11 @@ const Card: React.FC<CardProps> = ({
         <span className="px-2">{booksDescription}</span>
       </Stack>
       <Stack className="w-full justify-end">
-        <Button label="Reserve" className="bg-white rounded-lg p-1" />
+        <Button
+          label="Reserve"
+          onClick={showItem}
+          className="bg-white rounded-lg p-1"
+        />
       </Stack>
     </Stack>
   );
