@@ -9,7 +9,6 @@ import LoginPage from "./pages/login";
 import AuthProvider from "./context/AuthContext";
 import RegisterPage from "./pages/register";
 import ProtectedRoute from "./components/ProtectedRoute";
-import AlertNotification from "./components/Modal";
 import BookDetail from "./pages/detail";
 
 function App() {
@@ -22,7 +21,7 @@ function App() {
             <Route path="/market" element={<Market />} />
             <Route path="/payment" element={<Payment />} />
             <Route path="/profile" element={<Profile />} />
-            <Route path="/detail" element={<BookDetail />} />
+            <Route path="/detail/:id" element={<BookDetail />} />
           </Route>
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
