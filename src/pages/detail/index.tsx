@@ -6,4 +6,8 @@ import axios from "axios";
 import Card from "../../components/Card";
 import Grid from "../../components/Grid";
 
-const BookDetail = () => {};
+const BookDetail = () => {
+  return <div></div>;
+};
+
+export default BookDetail;
