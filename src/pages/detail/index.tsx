@@ -7,6 +7,7 @@ import { useParams } from "react-router-dom";
 
 interface BookProps {
   booksId: number;
+  booksImage: string;
   booksName: string;
   author: {
     author: string;
@@ -29,6 +30,8 @@ const BookDetail = () => {
         return response.data;
       });
   };
+
+  const imagePath = "http://localhost:3000/static/images/";
   useEffect(() => {
     fetchBookDetails();
   }, [id]);
@@ -37,6 +40,10 @@ const BookDetail = () => {
     <Stack className="w-screen min-h-screen  bg-black">
       <Header />
       <Group className="w-full h-full justify-center text-white">
+        <img
+          src={`${imagePath}${bookDetail?.booksImage}`}
+          className="w-[15rem] h-[15rem] object-contain"
+        ></img>
         <span>Books Name: {bookDetail?.booksName} </span>
         <span>Books ID : {bookDetail?.booksId}</span>
         <span>Books Description : {bookDetail?.booksDesc}</span>
