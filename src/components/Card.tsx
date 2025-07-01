@@ -9,12 +9,14 @@ interface CardProps {
   booksId: number;
   booksName: string;
   booksAuthor: string;
+  booksImage: string;
   booksDescription: string;
   booksCategory: string;
   className?: string;
 }
 const Card: React.FC<CardProps> = ({
   booksId,
+  booksImage,
   booksName,
   booksAuthor,
   booksDescription,
@@ -34,7 +36,7 @@ const Card: React.FC<CardProps> = ({
       )}
     >
       <img
-        src="/images/bookscoverexample.jpg"
+        src={booksImage}
         className="w-[15rem] h-[15rem] object-contain"
       ></img>
       <Stack className="w-[20rem] text-white text-xs font-bold p-1">

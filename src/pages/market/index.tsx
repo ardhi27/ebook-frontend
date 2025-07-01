@@ -8,6 +8,7 @@ import Card from "../../components/Card";
 
 interface BooksProps {
   booksId: number;
+  booksImage: string;
   booksName: string;
   author: {
     author: string;
@@ -30,6 +31,7 @@ const Market = () => {
       });
   };
 
+  const imagePath = "http://localhost:3000/static/images/";
   useEffect(() => {
     getData();
   }, []);
@@ -41,6 +43,7 @@ const Market = () => {
         <Grid className="p-5 items-center grid-cols-3 max-md:grid-cols-1 max-lg:grid-cols-2">
           {books.map((book) => (
             <Card
+              booksImage={`${imagePath}${book.booksImage}`}
               key={book.booksId}
               booksId={book.booksId}
               booksName={book.booksName}
