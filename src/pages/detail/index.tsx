@@ -4,6 +4,7 @@ import Header from "../../components/Header";
 import Stack from "../../components/Stack";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import Button from "../../components/Button";
 
 interface BookProps {
   booksId: number;
@@ -37,16 +38,33 @@ const BookDetail = () => {
   }, [id]);
 
   return (
-    <Stack className="w-screen min-h-screen  bg-black">
+    <Stack className="w-screen min-h-screen bg-black">
       <Header />
-      <Group className="w-full h-full justify-center text-white">
-        <img
-          src={`${imagePath}${bookDetail?.booksImage}`}
-          className="w-[15rem] h-[15rem] object-contain"
-        ></img>
-        <span>Books Name: {bookDetail?.booksName} </span>
-        <span>Books ID : {bookDetail?.booksId}</span>
-        <span>Books Description : {bookDetail?.booksDesc}</span>
+      <Group className="h-full justify-center text-white max-md:p-5">
+        <Group className="border-white border-2 p-4 rounded-lg">
+          <img
+            src={`${imagePath}${bookDetail?.booksImage}`}
+            className="w-[15rem] h-[15rem] object-contain"
+          ></img>
+          <Stack className="h-full">
+            <span>
+              <b>Books Name:</b> {bookDetail?.booksName}{" "}
+            </span>
+            <span>
+              <b>Books Author:</b> {bookDetail?.author.author}
+            </span>
+            <span>
+              <b>Books Category :</b> {bookDetail?.BooksCategory.category}
+            </span>
+            <span>
+              <b>Books Description :</b> {bookDetail?.booksDesc}
+            </span>
+            <Button
+              label="Order"
+              className="bg-white text-black rounded-lg p-2 hover:bg-primary"
+            />
+          </Stack>
+        </Group>
       </Group>
     </Stack>
   );
