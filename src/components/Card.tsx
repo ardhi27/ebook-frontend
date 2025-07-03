@@ -13,6 +13,7 @@ interface CardProps {
   booksDescription: string;
   booksCategory: string;
   className?: string;
+  children: ReactNode;
 }
 const Card: React.FC<CardProps> = ({
   booksId,
@@ -21,13 +22,14 @@ const Card: React.FC<CardProps> = ({
   booksAuthor,
   booksDescription,
   booksCategory,
+  children,
   className,
 }) => {
-  const navigate = useNavigate();
-  const showItem = () => {
-    console.log("book clicked on id : " + booksId);
-    navigate(`/detail/${booksId}`);
-  };
+  // const navigate = useNavigate();
+  // // const showItem = () => {
+  // //   console.log("book clicked on id : " + booksId);
+  // //   navigate(`/detail/${booksId}`);
+  // // };
   return (
     <Stack
       className={twMerge(
@@ -49,13 +51,7 @@ const Card: React.FC<CardProps> = ({
         <span>Description</span>
         <span className="px-2">{booksDescription}</span>
       </Stack>
-      <Stack className="w-full justify-end">
-        <Button
-          label="Reserve"
-          onClick={showItem}
-          className="bg-white rounded-lg p-1"
-        />
-      </Stack>
+      <Stack className="w-full justify-end">{children}</Stack>
     </Stack>
   );
 };

@@ -3,7 +3,7 @@ import Group from "../../components/Group";
 import Header from "../../components/Header";
 import Stack from "../../components/Stack";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Button from "../../components/Button";
 
 interface BookProps {
@@ -22,6 +22,17 @@ interface BookProps {
 const BookDetail = () => {
   const { id } = useParams<{ id: string }>();
   const [bookDetail, setBookDetail] = useState<BookProps | null>(null);
+
+  const fetchPaymentUrl = async () => {
+    const response = await axios.get(
+      `http://localhost:3000/api/payment/simulate`
+    );
+    if (response.data) {
+      console.log("Response : ", response.data.data);
+      window.location.href = response.data.data;
+    }
+  };
+
   const fetchBookDetails = async () => {
     await axios
       .get(`http://localhost:3000/api/books/books/${id}`)
@@ -33,6 +44,7 @@ const BookDetail = () => {
   };
 
   const imagePath = "http://localhost:3000/static/images/";
+
   useEffect(() => {
     fetchBookDetails();
   }, [id]);
@@ -59,10 +71,12 @@ const BookDetail = () => {
             <span>
               <b>Books Description :</b> {bookDetail?.booksDesc}
             </span>
-            <Button
-              label="Order"
+            <button
+              onClick={fetchPaymentUrl}
               className="bg-white text-black rounded-lg p-2 hover:bg-primary"
-            />
+            >
+              Order
+            </button>
           </Stack>
         </Group>
       </Group>

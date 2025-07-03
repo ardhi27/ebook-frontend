@@ -5,6 +5,8 @@ import axios from "axios";
 import Group from "../../components/Group";
 import Grid from "../../components/Grid";
 import Card from "../../components/Card";
+import { useNavigate } from "react-router-dom";
+import Button from "../../components/Button";
 
 interface BooksProps {
   booksId: number;
@@ -21,6 +23,7 @@ interface BooksProps {
 
 const Market = () => {
   const [books, setBooks] = useState<BooksProps[]>([]);
+  const navigate = useNavigate();
   const getData = async () => {
     await axios
       .get("http://localhost:3000/api/books/books")
@@ -31,6 +34,9 @@ const Market = () => {
       });
   };
 
+  const toDetailPage = (booksId: number) => {
+    navigate(`/detail/${booksId}`);
+  };
   const imagePath = "http://localhost:3000/static/images/";
   useEffect(() => {
     getData();
@@ -50,7 +56,15 @@ const Market = () => {
               booksAuthor={book.author.author}
               booksDescription={book.booksDesc}
               booksCategory={book.BooksCategory.category}
-            />
+            >
+              <Button
+                label="Reserve"
+                onClick={() => {
+                  toDetailPage(book.booksId);
+                }}
+                className="bg-white rounded-lg p-1"
+              />
+            </Card>
           ))}
         </Grid>
       </Group>
