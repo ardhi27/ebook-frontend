@@ -4,12 +4,12 @@ import Header from "../../components/Header";
 import Stack from "../../components/Stack";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
-import Button from "../../components/Button";
 
 interface BookProps {
   booksId: number;
   booksImage: string;
   booksName: string;
+  booksPrice: number;
   author: {
     author: string;
   };
@@ -22,10 +22,9 @@ interface BookProps {
 const BookDetail = () => {
   const { id } = useParams<{ id: string }>();
   const [bookDetail, setBookDetail] = useState<BookProps | null>(null);
-
   const fetchPaymentUrl = async () => {
     const response = await axios.get(
-      `http://localhost:3000/api/payment/simulate`
+      `http://localhost:3000/api/payment/simulate/${id}`
     );
     if (response.data) {
       console.log("Response : ", response.data.data);
@@ -70,6 +69,9 @@ const BookDetail = () => {
             </span>
             <span>
               <b>Books Description :</b> {bookDetail?.booksDesc}
+            </span>
+            <span>
+              <b>Books Price: Rp.{bookDetail?.booksPrice}</b>
             </span>
             <button
               onClick={fetchPaymentUrl}
