@@ -22,13 +22,77 @@ interface BookProps {
 const BookDetail = () => {
   const { id } = useParams<{ id: string }>();
   const [bookDetail, setBookDetail] = useState<BookProps | null>(null);
-  const fetchPaymentUrl = async () => {
-    const response = await axios.get(
-      `http://localhost:3000/api/payment/simulate/${id}`
-    );
-    if (response.data) {
-      console.log("Response : ", response.data.data);
-      window.location.href = response.data.data;
+  const [snapToken, setSnapToken] = useState("");
+
+  const MIDTRANS_CLIENT_KEY = "Mid-client-hlxwwZ8QCSeHWnOo";
+
+  useEffect(() => {
+    const snapScript = "https://app.sandbox.midtrans.com/snap/snap.js";
+    const script = document.createElement("script");
+    script.src = snapScript;
+    script.setAttribute("data-client-key", MIDTRANS_CLIENT_KEY);
+    script.async = true;
+
+    document.body.appendChild(script);
+
+    // Cleanup function untuk menghapus skrip saat komponen di-unmount
+    return () => {
+      document.body.removeChild(script);
+    };
+  }, []);
+
+  // useEffect(() => {
+  //   const fetchPaymentUrl = async () => {
+  //     const response = await axios.get(
+  //       `http://localhost:3000/api/payment/simulate/${id}`
+  //     );
+  //     if (response.data) {
+  //       console.log("Response : ", response.data.data);
+  //       // window.location.href = response.data.data.redirect_url;
+  //       setSnapToken(response.data.data.token);
+  //     }
+  //   };
+  //   fetchPaymentUrl();
+  // }, []);
+  const navigate = useNavigate();
+
+  const handlePay = async () => {
+    if (!window.snap) {
+      alert("Payment is not ready");
+      return;
+    }
+
+    try {
+      const response = await axios.get(
+        `http://localhost:3000/api/payment/simulate/${id}`
+      );
+      if (response.data) {
+        console.log("Response : ", response.data.data);
+        setSnapToken(response.data.data.token);
+      }
+
+      window.snap.pay(snapToken, {
+        onSuccess: function (result: any) {
+          console.log("success");
+          console.log(result);
+          navigate("/detail/success");
+        },
+        onPending: function (result: any) {
+          console.log("pending");
+          console.log(result);
+        },
+        onError: function (result: any) {
+          console.log("error");
+          console.log(result);
+        },
+        onClose: function () {
+          console.log(
+            "customer closed the popup without finishing the payment"
+          );
+        },
+      });
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -74,7 +138,7 @@ const BookDetail = () => {
               <b>Books Price: Rp.{bookDetail?.booksPrice}</b>
             </span>
             <button
-              onClick={fetchPaymentUrl}
+              onClick={handlePay}
               className="bg-white text-black rounded-lg p-2 hover:bg-primary"
             >
               Order
